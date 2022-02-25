@@ -1,5 +1,3 @@
-package br.com.jexpJavaFiles.mapa;
-//import java.awt.image; //n„o sei se precisa desta
 
 //este pacote se refere a uma classe que trabalha com imagens no java.
 import java.awt.image.BufferedImage;
@@ -15,17 +13,17 @@ import java.io.IOException;
 //pacote para poder salvar imagem
 import javax.imageio.ImageIO;
 
-/* Esta funÁ„o define o mapa e seus mÈtodos
-* Nesse programa, mapa È uma estrutura BufferedImage.
+/* Esta fun√ß√£o define o mapa e seus m√©todos
+* Nesse programa, mapa √© uma estrutura BufferedImage.
 */
 
 public class Mapa {
-	// Dimensıes do mapa. Estou fazendo separados para ser mais f·cil ajustar.
+	// Dimens√µes do mapa. Estou fazendo separados para ser mais f√°cil ajustar.
 	private int dimensaoHorizontalDoMapa = 1000;
 	private int dimensaoVerticalDoMapa = 1000;
 	private ArrayList<Integer> listaDeCoresParaPixels = null;
 	
-	//cÛdigos RGB sendo relacionados a elementos
+	//c√≥digos RGB sendo relacionados a elementos
 	public static final int AGUA = 0x0000ff;
 	public static final int GRAMA = 0x00ff00;
 	public static final int FLORESTA = 0x228b22;
@@ -80,8 +78,8 @@ public class Mapa {
 		this.listaDeCoresParaPixels.add(Mapa.VERMELHO);
 	}
 	
-	// FunÁ„o para salvar a imagem (sempre em formato PNG)
-	// Recebe o nome do arquivo a ser salvo, contendo a extens„o .png no final.
+	// Fun√ß√£o para salvar a imagem (sempre em formato PNG)
+	// Recebe o nome do arquivo a ser salvo, contendo a extens√£o .png no final.
 	// Devolve True se der certo, false caso contrario.
 	public boolean salvarImagem(String nomeDoArquivoDeSaida) {
 		try {
@@ -96,9 +94,9 @@ public class Mapa {
 		}
 	}
 	
-	// FunÁ„o para carregar uma imagem (sempre em formato PNG)
-	// Recebe o nome do arquivo a ser lido, bem como o caminho atÈ ele (ex.: C:\...\imagem.png).
-	// Reescreve o conte˙do do mapa.
+	// Fun√ß√£o para carregar uma imagem (sempre em formato PNG)
+	// Recebe o nome do arquivo a ser lido, bem como o caminho at√© ele (ex.: C:\...\imagem.png).
+	// Reescreve o conte√∫do do mapa.
 	// Devolve true se der certo, false se der errado.
 	public boolean carregarImagem(String nomeDoArquivoCarregado) {
 		BufferedImage imagemCarregada = null;
@@ -136,38 +134,38 @@ public class Mapa {
 		return this.mapa.getHeight();
 	}
 	
-	/* Esta funÁ„o vai receber o valor RGB de um pixel e vai buscar na lista listaDeCoresParaPixels
-	 * qual È a cor que mais se aproxima. Depois disso, ela vai substituir o pixel da imagem original
+	/* Esta fun√ß√£o vai receber o valor RGB de um pixel e vai buscar na lista listaDeCoresParaPixels
+	 * qual √© a cor que mais se aproxima. Depois disso, ela vai substituir o pixel da imagem original
 	 * por esse novo valor.
 	 * 
-	 * Entrada: int corDoPixelOriginal, posiÁ„oHorizontal, posiÁ„oVertical.
-	 * A imagemSaida deve ter as mesmas dimensıes da imagem original e vai ser a da instancia que chamou este mÈtodo.
-	 * N„o devolve nada.
+	 * Entrada: int corDoPixelOriginal, posi√ß√£oHorizontal, posi√ß√£oVertical.
+	 * A imagemSaida deve ter as mesmas dimens√µes da imagem original e vai ser a da instancia que chamou este m√©todo.
+	 * N√£o devolve nada.
 	 */
 	
 	public void simplificaPixelRGB (int corDoPixelOriginal, int posicaoHorizontal, int posicaoVertical) {
 		
-		// ComeÁo configurando um padr„o.
+		// Come√ßo configurando um padr√£o.
 		int corParaSubstituirOPixel = Mapa.AGUA;
-		// Uma vari·vel auxiliar. Ela comeÁa com um valor muito grande, ao qual a diferenÁa entre a cor dos pixels ser· sempre
+		// Uma vari√°vel auxiliar. Ela come√ßa com um valor muito grande, ao qual a diferen√ßa entre a cor dos pixels ser√° sempre
 		// menor.
 		int auxiliarParaCalculoDaDiferenca = 0;
 		int menorDiferencaEncontrada = 0x1000000;
 		
-		// Vou calcular o mÛdulo da diferenÁa entre o valor RGB do pixel original com cada elemento da listaDeCoresParaPixels.
-		// Aquele cuja diferenÁa for a menor ser· a cor a substituir o original.
+		// Vou calcular o m√≥dulo da diferen√ßa entre o valor RGB do pixel original com cada elemento da listaDeCoresParaPixels.
+		// Aquele cuja diferen√ßa for a menor ser√° a cor a substituir o original.
 		
 		for (int posicaoNaLista = 0; posicaoNaLista < this.listaDeCoresParaPixels.size(); posicaoNaLista++) {
-			// Claro, existem possibilidades de otimizar isso envolvendo ordenar essa lista, mas por enquanto n„o
+			// Claro, existem possibilidades de otimizar isso envolvendo ordenar essa lista, mas por enquanto n√£o
 			// vou fazer nada do tipo.
 			
 			
-			// Atualiza o auxiliar diferenÁa encontrada.
+			// Atualiza o auxiliar diferen√ßa encontrada.
 			// Vou trabalhar com as componenetes separadas
 			// 0x00ff0000 --> filtro para pegar componentes vermelhas
 			// 0x0000ff00 --> filtro para pegar componenetes verdes
 			// 0x000000ff --> filtro para pegar componenetes azuis
-			// Eu ainda preciso fazer deslocamentos de bits para "normalizar" a diferenÁa.
+			// Eu ainda preciso fazer deslocamentos de bits para "normalizar" a diferen√ßa.
 			auxiliarParaCalculoDaDiferenca = Math.abs(((corDoPixelOriginal & 0x00ff0000) >> 16) 
 					- ((this.listaDeCoresParaPixels.get(posicaoNaLista) & 0x00ff0000) >> 16));
 			
@@ -180,16 +178,16 @@ public class Mapa {
 			
 			if (auxiliarParaCalculoDaDiferenca < menorDiferencaEncontrada) {
 				
-				// Atualiza a cor para substituiÁ„o de acordo com o conte˙do da posiÁ„o posicaoNaLista da lista de cores.
+				// Atualiza a cor para substitui√ß√£o de acordo com o conte√∫do da posi√ß√£o posicaoNaLista da lista de cores.
 				corParaSubstituirOPixel = this.listaDeCoresParaPixels.get(posicaoNaLista);
 				
-				// Atualiza a menor diferenÁa encontrada.
+				// Atualiza a menor diferen√ßa encontrada.
 				menorDiferencaEncontrada = auxiliarParaCalculoDaDiferenca;
 				
 			}
 		}
 		
-		// Encontrada a cor que mais se aproxima da original, È hora de substituir na imagem de saÌda.
+		// Encontrada a cor que mais se aproxima da original, √© hora de substituir na imagem de sa√≠da.
 		this.mapa.setRGB(posicaoHorizontal, posicaoVertical, corParaSubstituirOPixel);
 	}
 	
